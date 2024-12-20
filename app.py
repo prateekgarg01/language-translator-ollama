@@ -1,36 +1,43 @@
-import streamlit as st
-from langchain.prompts import ChatpromptTemplate
-from langchain_core.output_parsers import StrOutputParser
-from langchain.llms import Ollama
+# Import necessary libraries
+import streamlit as st  # For building the web app interface
+from langchain.prompts import ChatPromptTemplate  # For creating prompt templates
+from langchain_core.output_parsers import StrOutputParser  # For processing output text
+from langchain.llms import Ollama  # For using the Ollama language model
 
+# Initialize the Ollama model with a specific model version (llama3.1:8b)
 model = Ollama(model="llama3.1:8b")
 
-# define Prompt Template
+# Define a generic prompt template for language translation
+generic_template = "Translate the following into {language}:"
 
-generic_template= "Translate the following into {language}:"
-prompt = ChatpromptTemplate.from_messages(
-    [("sytem",generic_template), ("user",{text})]
+# Create a chat-based prompt template using the defined generic template
+prompt = ChatPromptTemplate.from_messages(
+    [("system", generic_template), ("user", "{text}")]
 )
 
+# Set up the output parser to process the model's output as a string
 parser = StrOutputParser()
 
-chain = prompt|model|parser
+# Chain the prompt, model, and parser together
+chain = prompt | model | parser
 
-# Streamlit App
+# Streamlit app interface begins
 
+# Set the title of the web app
 st.title("Language Translator using Ollama")
 
-# Input Fields
+# Create input fields for users to type the text and the target translation language
+input_text = st.text_input("Type the Word or Sentence", "Hello")
+input_language = st.text_input("Translation Language", "Swedish")
 
-input_text = st.text_input("Type the Word or Sentence","Hello")
-input_language = st.text_input("Translation Language","Swedish")
-
-
-# Define Buttons
-
+# Define a button that will trigger the translation process
 if st.button("Translate"):
     try:
-        translated_output = chain.invoke({"language":input_language, "text":input_text})
+        # Invoke the chain of prompt, model, and parser to generate the translated output
+        translated_output = chain.invoke({"language": input_language, "text": input_text})
+        
+        # Display the translated output in the app
         st.write("**Translated output:**", translated_output)
     except Exception as e:
+        # Handle errors and display error message if translation fails
         st.error(f"Error During Translation: {e}")
