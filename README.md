@@ -1,2 +1,15 @@
-# language-translator-ollama
-This repository features a language translation app built with Streamlit, Langchain, and the Ollama model. Users can translate text between languages via an interactive web interface. The translation is powered by Ollama’s Llama model, with Langchain used to manage prompts and process outputs.
+# Language Translator using Streamlit & Ollama
+
+This project is a simple language translation web app built using **Streamlit**, **Langchain**, and **Ollama**. The application allows users to input a word or sentence and get its translation into a language of their choice.
+
+## Features
+
+- **Streamlit Interface**: User-friendly web interface for entering text and selecting the translation language.
+- **Ollama Model**: Uses the Llama model (Ollama API) for generating translations.
+- **Langchain Integration**: Utilizes Langchain to manage prompts, LLMs, and output parsers.
+- **Real-Time Translation**: Translate words or sentences with the click of a button.
+
+## Installation
+
+To run the app locally, clone this repository and install the necessary dependencies:
+
